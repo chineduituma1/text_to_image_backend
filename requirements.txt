@@ -3,6 +3,13 @@ uvicorn[standard]
 requests
 pillow
 openai
-dotenv
+python-dotenv
 pydantic
 pydantic_extra_types
+sqlalchemy
+python-multipart
+passlib
+pyjwt
+bcrypt
+httpx
+pytest
