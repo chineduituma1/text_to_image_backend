@@ -40,7 +40,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: /Users/admin/CMP9785/
-          file: /Users/admin/CMP9785/Dockerfile
+          context: ./Users/admin/CMP9785/
+          file: ./Users/admin/CMP9785/Dockerfile
           push: true
           tags: chineduituma1/app:latest
