@@ -35,8 +35,8 @@ async def create_user(user: schemas.UserCreate, db: sqlalchemy.orm.Session):
     
     user_obj = models.User(email=user.email, hashed_password=passlib.hash.bcrypt.hash(user.hashed_password))
     db.add(user_obj)
-    await db.commit()
-    await db.refresh(user_obj)
+    db.commit()
+    db.refresh(user_obj)
     return user_obj
 
 async def delete_user(email: str, db: sqlalchemy.orm.Session):
@@ -62,7 +62,7 @@ async def authenticate_user(email: str, password: str, db: sqlalchemy.orm.Sessio
 async def create_token(user: models.User):
     user_obj = schemas.User.from_orm(user)
 
-    token = jwt.encode(user_obj.dict(), JWT_SECRET)
+    token = jwt.encode(user_obj.model_dump(), JWT_SECRET)
 
     return dict(access_token=token, token_type="bearer")
 

@@ -40,7 +40,7 @@ html= ""
 
 @app.get("/")
 async def test_endpoint():
-    return {"message": "Root endpoint"}  
+    return {"message": " This is a Root endpoint for test purposes. "}  
 
 @app.post("/api/create_user")
 async def create_user(user: schemas.UserCreate, db:sqlalchemy.orm.Session = fastapi.Depends(services.get_db)):
@@ -48,11 +48,11 @@ async def create_user(user: schemas.UserCreate, db:sqlalchemy.orm.Session = fast
      if db_user:
           raise fastapi.HTTPException(status_code=400, detail="Email already exists")
      
-     created_user = services.create_user(user, db)
+     created_user = await services.create_user(user, db)
      
      return created_user
 
-@app.delete("/api/delete_user/")
+@app.delete("/api/delete_user")
 async def delete_user(user_id: str, db: sqlalchemy.orm.Session = fastapi.Depends(services.get_db)):
     db_user = await services.get_user_by_email(user_id, db)
     if not db_user:

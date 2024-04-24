@@ -13,7 +13,7 @@ class User(database.Base):
     email = sqlalchemy.Column(sqlalchemy.String, unique=True, index=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String)
 
-    leads = sqlalchemy.orm.relationship("Lead", back_populates="owner")
 
     def verify_password(self, password:str):
         return passlib.hash.bcrypt.verify(password, self.hashed_password)
+
