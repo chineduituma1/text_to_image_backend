@@ -1,4 +1,5 @@
 import requests
+import uvicorn
 import os
 import services
 import schemas
@@ -95,3 +96,6 @@ async def generate_image(request: schemas.GenerateImageRequest):
         raise HTTPException(status_code=response.status_code, detail=response.text)
     image_url = response.json()["data"][0]["url"]
     return {"url":image_url}
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=80, reload=True)

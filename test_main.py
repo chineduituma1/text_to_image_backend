@@ -11,36 +11,36 @@ def test_test_endpoint():
     response = client.get("/", headers={"JWT_SECRET": "myjwtsecret"})
     assert response.status_code == 200
     assert response.json() == {
-        "message": "Root endpoint",
+        "message": " This is a Root endpoint for test purposes. ",
     }
 
-# def test_create_user():
-#     user_data = {
-#         "email": "siri@example.com",
-#         "hashed_password": "testpassword",
-#     }
-#     response = client.post("/api/create_user", json=user_data)
-#     assert response.status_code == 200
-#     created_user = response.json()
-#     assert created_user["email"] == user_data["email"]
-#     existing_user_data = {
-#         "email": "testuser@example.com", 
-#         "hashed_password": "anotherpassword",
-#     }
-#     response = client.post("/api/create_user", json=existing_user_data)
-#     assert response.status_code == 400
-#     assert response.json() == {"detail": "Email already exists"}
+def test_create_user():
+    user_data = {
+        "email": "alex@example.com",
+        "hashed_password": "testpassword",
+    }
+    response = client.post("/api/create_user", json=user_data)
+    assert response.status_code == 200
+    created_user = response.json()
+    assert created_user["email"] == user_data["email"]
+    existing_user_data = {
+        "email": "alex@example.com", 
+        "hashed_password": "anotherpassword",
+    }
+    response = client.post("/api/create_user", json=existing_user_data)
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Email already exists"}
 
-# def test_delete_user():
-#     user_id = "alex@lincs.com" 
-#     response = client.delete(f"/api/delete_user/?user_id={user_id}")
-#     assert response.status_code == 200
-#     assert response.json() == {"message": "User deleted successfully"}
+def test_delete_user():
+    user_id = "siri@example.com" 
+    response = client.delete(f"/api/delete_user/?user_id={user_id}")
+    assert response.status_code == 200
+    assert response.json() == {"message": "User deleted successfully"}
 
-#     non_existent_user_id = "nonexistentuser" 
-#     response = client.delete(f"/api/delete_user/?user_id={non_existent_user_id}")
-#     assert response.status_code == 404
-#     assert response.json() == {"detail": "User not found"}
+    non_existent_user_id = "nonexistentuser" 
+    response = client.delete(f"/api/delete_user/?user_id={non_existent_user_id}")
+    assert response.status_code == 404
+    assert response.json() == {"detail": "User not found"}
 
 def test_generate_token():
     # Test with valid credentials
